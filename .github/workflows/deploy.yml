@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        
+      - name: Crear archivo clave SSH
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > EC2_SSH_KEY.pem
+          chmod 600 EC2_SSH_KEY.pem
 
       - name: Run PostgreSQL container on EC2
         run: |
