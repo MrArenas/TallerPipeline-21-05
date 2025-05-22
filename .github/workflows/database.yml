@@ -19,6 +19,13 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > EC2_SSH_KEY.pem
           chmod 600 EC2_SSH_KEY.pem
 
+      - name: listar archivos .sql
+        run: |
+          # Listamos los archivos .sql en la carpeta sql/
+          echo "Archivos SQL encontrados:"
+          ls -1 sql/*.sql    
+
+
       - name: Copiar archivos .sql a EC2
         run: |
           # Copiamos todos los .sql que estén en la carpeta sql/ del repo a /tmp/ en EC2
