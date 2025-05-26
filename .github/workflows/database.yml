@@ -34,12 +34,12 @@ jobs:
       - name: Ejecutar scripts SQL dentro del contenedor PostgreSQL en EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i EC2_SSH_KEY.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            for sqlfile in /tmp/*.sql; do
-              echo "Ejecutando \$sqlfile en el contenedor postgresql-dev"
-              docker cp "\$sqlfile" postgresql-dev:/tmp/
-              docker exec -i postgresql-dev psql \
-                -U $POSTGRES_USER \
-                -d $POSTGRES_DB \
-                -f /tmp/\$(basename \$sqlfile)
-            done
-          EOF
+for sqlfile in /tmp/*.sql; do
+  echo "Ejecutando \$sqlfile en el contenedor postgresql-dev"
+  docker cp "\$sqlfile" postgresql-dev:/tmp/
+  docker exec -i postgresql-dev psql \
+    -U ${{ secrets.POSTGRES_USER }} \
+    -d ${{ secrets.POSTGRES_DB }} \
+    -f /tmp/\$(basename \$sqlfile)
+done
+EOF
