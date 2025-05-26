@@ -38,8 +38,8 @@ jobs:
               echo "Ejecutando \$sqlfile en el contenedor postgresql-dev"
               docker cp "\$sqlfile" postgresql-dev:/tmp/
               docker exec -i postgresql-dev psql \
-              -U ${{ secrets.POSTGRES_USER }} \
-              -d ${{ secrets.POSTGRES_DB }} \
-              -f /tmp/\$(basename \$sqlfile)
+                -U $POSTGRES_USER \
+                -d $POSTGRES_DB \
+                -f /tmp/\$(basename \$sqlfile)
             done
           EOF
