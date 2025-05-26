@@ -37,8 +37,9 @@ jobs:
             for sqlfile in /tmp/*.sql; do
               echo "Ejecutando \$sqlfile en el contenedor postgresql-dev"
               docker cp "\$sqlfile" postgresql-dev:/tmp/
-              docker exec -u postgres postgresql-dev psql 
-              -d ${{ secrets.POSTGRES_DB }} 
-              -f /tmp/\$(basename \$sqlfile)
+              docker exec -i postgresql-dev psql \
+              -U ${{ secrets.POSTGRES_USER }} \
+              -d ${{ secrets.POSTGRES_DB }} \
+              -f /home/arenas/Descargas/TallerPipeline-21-05/sql/DB.sql
             done
           EOF
